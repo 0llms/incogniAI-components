@@ -20,7 +20,6 @@ const DEFAULT_AVATAR_COLOR = "#475569";
 
 const PLAN_BADGE_COLORS: Record<Plan, string> = {
   free: "bg-zinc-500/20 text-zinc-400",
-  go: "bg-amber-500/20 text-amber-400",
   pro: "bg-blue-500/20 text-blue-400",
   max: "bg-purple-500/20 text-purple-400",
   ultra: "bg-yellow-500/20 text-yellow-300",
