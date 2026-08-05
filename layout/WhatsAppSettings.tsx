@@ -60,7 +60,6 @@ export function WhatsAppSettings() {
 
   const canUseWhatsApp = caps?.computer === true;
   const planName = user?.plan || "free";
-  const isGoPlan = planName === "go";
 
   // Fetch status on mount
   useEffect(() => {
@@ -395,9 +394,7 @@ export function WhatsAppSettings() {
           <div className="rounded-lg bg-incogni-bg p-3">
             <p className="font-medium text-incogni-text">Rate Limits</p>
             <p className="text-incogni-muted">
-              {isGoPlan
-                ? "Highest rate limit (Go plan) — 100 messages/hour"
-                : "Unlimited messages"}
+              Unlimited messages
             </p>
           </div>
           <div className="rounded-lg bg-incogni-bg p-3">
@@ -407,14 +404,7 @@ export function WhatsAppSettings() {
             </p>
           </div>
         </div>
-        {isGoPlan && (
-          <div className="mt-3 rounded-lg border border-amber-500/30 bg-amber-500/5 p-3">
-            <p className="flex items-center gap-1.5 text-sm text-amber-400">
-              <Zap className="h-3.5 w-3.5" />
-              Go plan has the highest rate limit among paid tiers. Upgrade to Pro/Max/Ultra for unlimited.
-            </p>
-          </div>
-        )}
+
       </div>
 
 {/* Help */}
