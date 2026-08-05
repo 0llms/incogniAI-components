@@ -14,6 +14,7 @@ import { Library } from "@/components/layout/Library";
 import { cn } from "@/lib/utils";
 import { CustomAIsModal } from "./CustomAIsModal";
 import { AccountMenu } from "@/components/auth/AccountMenu";
+import { InviteBanner } from "@/components/invite/InviteBanner";
 import type { Thread } from "@/types";
 import {
   DropdownMenu,
@@ -313,7 +314,8 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         </div>
 
         {/* Account menu at bottom */}
-        <div className="p-3">
+        <div className="p-3 flex flex-col gap-2">
+          <InviteBanner />
           <AccountMenu />
         </div>
       </aside>
