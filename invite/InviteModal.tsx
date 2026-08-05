@@ -25,7 +25,7 @@ const CARDS: Card[] = [
 export function InviteModal({ onClose }: { onClose: () => void }) {
   const { user } = useAuth();
   const [shareModalOpen, setShareModalOpen] = useState(false);
-  const [drawsAvailable, setDrawsAvailable] = useState(1);
+  const [drawsAvailable, setDrawsAvailable] = useState(0);
   const [isSpinning, setIsSpinning] = useState(false);
   const [wonCard, setWonCard] = useState<Card | null>(null);
   
@@ -155,7 +155,7 @@ export function InviteModal({ onClose }: { onClose: () => void }) {
                   className="px-6 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white text-sm font-medium transition-colors disabled:opacity-50 flex items-center gap-2"
                 >
                   {isSpinning ? <RotateCcw className="h-4 w-4 animate-spin" /> : null}
-                  Draw a Reward
+                  {drawsAvailable > 0 ? "Draw a Reward" : "0 Draws Available"}
                 </button>
                 <p className="text-white/40 text-xs">My Prizes &gt;</p>
               </>
