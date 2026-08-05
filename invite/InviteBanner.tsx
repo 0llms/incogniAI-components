@@ -1,11 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Gift, ChevronRight } from "lucide-react";
 import { InviteModal } from "./InviteModal";
 
 export function InviteBanner() {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <>
@@ -32,7 +38,10 @@ export function InviteBanner() {
         <ChevronRight className="h-4 w-4 shrink-0 text-incogni-text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-incogni-text" />
       </button>
 
-      {isOpen && <InviteModal onClose={() => setIsOpen(false)} />}
+      {isOpen && mounted && createPortal(
+        <InviteModal onClose={() => setIsOpen(false)} />,
+        document.body
+      )}
     </>
   );
 }
