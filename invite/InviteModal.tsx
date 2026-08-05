@@ -32,11 +32,20 @@ export function InviteModal({ onClose }: { onClose: () => void }) {
   // Animation state for shuffle
   const [activeIndex, setActiveIndex] = useState(2); // Center card
 
+  useEffect(() => {
+    const savedDraws = localStorage.getItem('incogni_draws');
+    if (savedDraws !== null) {
+      setDrawsAvailable(parseInt(savedDraws, 10));
+    }
+  }, []);
+
   const handleDraw = () => {
     if (drawsAvailable <= 0 || isSpinning) return;
     
     setIsSpinning(true);
-    setDrawsAvailable((prev) => prev - 1);
+    const newDraws = drawsAvailable - 1;
+    setDrawsAvailable(newDraws);
+    localStorage.setItem('incogni_draws', newDraws.toString());
     setWonCard(null);
 
     // Shuffle animation loop
@@ -61,8 +70,8 @@ export function InviteModal({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 sm:p-8 font-sans">
-      <div className="relative w-full max-w-5xl h-[80vh] flex flex-col bg-[#0a0a0c] rounded-2xl border border-white/10 overflow-hidden shadow-2xl">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black font-sans">
+      <div className="relative w-full h-full flex flex-col bg-[#0a0a0c] overflow-hidden">
         
         {/* Close Button */}
         <button
@@ -73,8 +82,11 @@ export function InviteModal({ onClose }: { onClose: () => void }) {
         </button>
 
         {/* Header */}
-        <div className="text-center pt-12 pb-8 z-10">
-          <h2 className="text-3xl font-medium text-white mb-2 tracking-tight">IncogniAI Friends</h2>
+        <div className="text-center pt-16 pb-8 z-10">
+          <div className="flex items-center justify-center gap-3 mb-2">
+            <h2 className="text-3xl font-medium text-white tracking-tight">IncogniAI Friends</h2>
+            <span className="px-2 py-0.5 bg-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-wider rounded-full border border-blue-500/30">Beta</span>
+          </div>
           <p className="text-white/60 text-sm">Invite friends to IncogniAI for guaranteed Membership Credits</p>
         </div>
 
@@ -131,10 +143,8 @@ export function InviteModal({ onClose }: { onClose: () => void }) {
           <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3">
             {wonCard ? (
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center">
-                <p className="text-green-400 font-medium text-lg mb-4">You won {wonCard.days} Days of Ultra!</p>
-                <button onClick={() => { setWonCard(null); setDrawsAvailable(1); }} className="text-sm text-white/60 hover:text-white underline">
-                  Spin Again (Debug)
-                </button>
+                <p className="text-green-400 font-medium text-lg mb-2">You won {wonCard.days} Days of Ultra!</p>
+                <p className="text-sm text-white/60">Credits have been applied to your account.</p>
               </motion.div>
             ) : (
               <>
